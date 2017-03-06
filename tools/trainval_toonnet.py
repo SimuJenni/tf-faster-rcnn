@@ -47,9 +47,6 @@ def parse_args():
   parser.add_argument('--tag', dest='tag',
                       help='tag of the model',
                       default=None, type=str)
-  parser.add_argument('--net', dest='net',
-                      help='vgg16 or res101',
-                      default='res101', type=str)
   parser.add_argument('--set', dest='set_cfgs',
                       help='set config keys', default=None,
                       nargs=argparse.REMAINDER)
@@ -121,10 +118,8 @@ if __name__ == '__main__':
   _, valroidb = combined_roidb(args.imdbval_name)
   print('{:d} validation roidb entries'.format(len(valroidb)))
   cfg.TRAIN.USE_FLIPPED = orgflip
-  if args.net == 'vgg16':
-    net = vgg16(batch_size=cfg.TRAIN.IMS_PER_BATCH)
-  else:
-    net = Resnet101(batch_size=cfg.TRAIN.IMS_PER_BATCH)
+
+  net = ToonNet(batch_size=cfg.TRAIN.IMS_PER_BATCH)
   train_net(net, imdb, roidb, valroidb, output_dir, tb_dir,
             pretrained_model=args.weight,
             max_iters=args.max_iters)
