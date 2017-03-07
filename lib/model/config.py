@@ -222,7 +222,7 @@ __C.EPS = 1e-14
 
 # Root directory of project
 # __C.ROOT_DIR = osp.abspath(osp.join(osp.dirname(__file__), '..', '..'))
-__C.ROOT_DIR = '/data/cvg/simon/data/faster-rcnn'
+__C.ROOT_DIR = '/data/cvg/simon/data/faster_rcnn'
 
 # Data directory
 __C.DATA_DIR = osp.abspath(osp.join(__C.ROOT_DIR, 'data'))
