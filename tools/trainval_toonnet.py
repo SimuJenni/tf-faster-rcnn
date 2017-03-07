@@ -18,6 +18,7 @@ import pprint
 import numpy as np
 import sys
 
+import tensorflow as tf
 from nets.toonnet import ToonNet
 
 
