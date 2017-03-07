@@ -60,7 +60,6 @@ if [ ! -f ${NET_FINAL}.index ]; then
             --iters ${ITERS} \
             --cfg experiments/cfgs/${NET}.yml \
             --tag ${EXTRA_ARGS_SLUG} \
-            --net ${NET} \
             --set TRAIN.STEPSIZE ${STEPSIZE} ${EXTRA_ARGS}
     else
         CUDA_VISIBLE_DEVICES=${GPU_ID} time python ./tools/trainval_toonnet.py \
@@ -69,7 +68,6 @@ if [ ! -f ${NET_FINAL}.index ]; then
             --imdbval ${TEST_IMDB} \
             --iters ${ITERS} \
             --cfg experiments/cfgs/${NET}.yml \
-            --net ${NET} \
             --set TRAIN.STEPSIZE ${STEPSIZE} ${EXTRA_ARGS}
     fi
 fi
