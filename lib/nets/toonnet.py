@@ -87,7 +87,7 @@ class ToonNet(Network):
 
     def build_network(self, sess, is_training=True):
         with tf.variable_scope('discriminator', 'discriminator',
-                               regularizer=tf.contrib.layers.l2_regularizer(cfg.TRAIN.WEIGHT_DECAY)):
+                               regularizer=tf.contrib.layers.l2_regularizer(cfg.TRAIN.WEIGHT_DECAY), reuse=None):
 
             # select initializers
             if cfg.TRAIN.TRUNCATED:
