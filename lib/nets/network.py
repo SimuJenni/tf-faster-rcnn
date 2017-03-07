@@ -190,7 +190,7 @@ class Network(object):
         out_loss_box = bbox_outside_weights * in_loss_box
         loss_box = tf.reduce_mean(tf.reduce_sum(
             out_loss_box,
-            axis=dim
+            reduction_indices=dim,
         ))
         return loss_box
 
