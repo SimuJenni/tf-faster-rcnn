@@ -83,6 +83,8 @@ def combined_roidb(imdb_names):
 
 
 if __name__ == '__main__':
+    tf.logging.set_verbosity(tf.logging.DEBUG)
+
     args = parse_args()
 
     print('Called with args:')
