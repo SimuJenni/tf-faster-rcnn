@@ -281,7 +281,7 @@ class Network(object):
         val_summaries = []
         with tf.device("/cpu:0"):
             for key, var in self._event_summaries.items():
-                val_summaries.append(tf.summary.scalar(key, var))
+                val_summaries.append(tf.scalar_summary(key, var))
             for key, var in self._score_summaries.items():
                 self._add_score_summary(key, var)
             for var in self._act_summaries:
