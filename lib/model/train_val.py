@@ -164,11 +164,14 @@ class SolverWrapper(object):
       # Only initialize the variables that were not initialized when the graph was built
       sess.run(tf.variables_initializer(variables, name='init'))
       var_keep_dic = self.get_variables_in_checkpoint_file(self.pretrained_model)
-      variables_to_restore = []
-      # print(var_keep_dic)
-      for v in variables:
-          if v.name.split(':')[0] in var_keep_dic:
-              variables_to_restore.append(v)
+      # variables_to_restore = []
+      # # print(var_keep_dic)
+      # for v in variables:
+      #     if v.name.split(':')[0] in var_keep_dic:
+      #         variables_to_restore.append(v)
+      slim = tf.contrib.slim
+      variables_to_restore = slim.get_variables_to_restore(
+        include=['discriminator'], exclude=['fully_connected', 'discriminator/fully_connected'])
       print('Vars2Restore: {}'.format([v.op.name for v in variables_to_restore]))
 
       restorer = tf.train.Saver(variables_to_restore)
