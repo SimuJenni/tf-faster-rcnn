@@ -41,7 +41,7 @@ class vgg16(Network):
       x2 = tf.slice(rois, [0, 3], [-1, 1], name="x2") / width
       y2 = tf.slice(rois, [0, 4], [-1, 1], name="y2") / height
       bboxes = tf.concat(axis=1, values=[y1, x1, y2, x2])
-      crops = tf.image.crop_and_resize(bottom, bboxes, tf.to_int32(batch_ids), [12, 12], name="crops")
+      crops = tf.image.crop_and_resize(bottom, bboxes, tf.to_int32(batch_ids), [14, 14], name="crops")
 
     return slim.max_pool2d(crops, [2, 2], padding='SAME')
 
@@ -118,7 +118,7 @@ class vgg16(Network):
       else:
         raise NotImplementedError
       # Use conv2d instead of fully_connected layers.
-      fc6 = slim.conv2d(pool5, 4096, [6, 6], padding='VALID', scope='fc6')
+      fc6 = slim.conv2d(pool5, 4096, [7, 7], padding='VALID', scope='fc6')
       fc6 = slim.dropout(fc6, is_training=is_training,
                          scope='dropout6')
       fc7 = slim.conv2d(fc6, 4096, [1, 1], scope='fc7')
