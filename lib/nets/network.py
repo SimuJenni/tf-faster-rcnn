@@ -165,8 +165,8 @@ class Network(object):
 
     def _anchor_component(self):
         with tf.variable_scope('ANCHOR_' + self._tag) as scope:
-            height = tf.to_int32(tf.ceil(self._im_info[0, 0] / 17.))
-            width = tf.to_int32(tf.ceil(self._im_info[0, 1] / 17.))
+            height = tf.to_int32(tf.floor(self._im_info[0, 0] / 17.))
+            width = tf.to_int32(tf.floor(self._im_info[0, 1] / 17.))
             anchors, anchor_length = tf.py_func(generate_anchors_pre,
                                                 [height, width,
                                                  self._feat_stride, self._anchor_scales],
