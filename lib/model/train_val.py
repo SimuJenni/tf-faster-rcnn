@@ -169,6 +169,8 @@ class SolverWrapper(object):
       for v in variables:
           if v.name.split(':')[0] in var_keep_dic:
               variables_to_restore.append(v)
+      print('Vars2Restore: {}'.format([v.op.name for v in variables_to_restore]))
+
       restorer = tf.train.Saver(variables_to_restore)
       restorer.restore(sess, self.pretrained_model)
       print('Loaded.')
