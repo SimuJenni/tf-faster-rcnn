@@ -218,7 +218,7 @@ __C.PIXEL_MEANS = np.array([[[102.9801, 115.9465, 122.7717]]])
 __C.RNG_SEED = 3
 
 # A small number that's used many times
-__C.EPS = 1e-14
+__C.EPS = 1e-8  # 1e-14
 
 # Root directory of project
 # __C.ROOT_DIR = osp.abspath(osp.join(osp.dirname(__file__), '..', '..'))

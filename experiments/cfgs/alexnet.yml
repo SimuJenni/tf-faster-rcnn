@@ -14,4 +14,3 @@ TRAIN:
 TEST:
   HAS_RPN: True
 POOLING_MODE: crop
-EPS: 1e-8
