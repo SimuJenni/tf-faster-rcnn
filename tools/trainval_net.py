@@ -20,7 +20,7 @@ import sys
 
 import tensorflow as tf
 from nets.vgg16 import vgg16
-from nets.res101 import Resnet101
+# from nets.res101 import Resnet101
 from nets.toonnet import ToonNet
 
 
@@ -121,10 +121,7 @@ if __name__ == '__main__':
   _, valroidb = combined_roidb(args.imdbval_name)
   print('{:d} validation roidb entries'.format(len(valroidb)))
   cfg.TRAIN.USE_FLIPPED = orgflip
-  if args.net == 'vgg16':
-    net = vgg16(batch_size=cfg.TRAIN.IMS_PER_BATCH)
-  else:
-    net = Resnet101(batch_size=cfg.TRAIN.IMS_PER_BATCH)
+  net = vgg16(batch_size=cfg.TRAIN.IMS_PER_BATCH)
   train_net(net, imdb, roidb, valroidb, output_dir, tb_dir,
             pretrained_model=args.weight,
             max_iters=args.max_iters)
