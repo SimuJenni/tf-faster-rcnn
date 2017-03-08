@@ -32,7 +32,7 @@ from model.config import cfg
 
 
 def toon_net_argscope(activation=tf.nn.relu, kernel_size=(3, 3), padding='SAME', training=True, center=True,
-                      w_reg=0.0001):
+                      w_reg=0.0005):
     """Defines default parameter values for all the layers used in ToonNet.
 
     Args:
