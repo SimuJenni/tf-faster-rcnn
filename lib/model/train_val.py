@@ -157,46 +157,18 @@ class SolverWrapper(object):
     ss_paths = sfiles
 
     if lsf == 0:
-      # Fresh train directly from VGG weights
-      print('Loading initial model weights from {:s}'.format(self.pretrained_model))
-      variables = tf.global_variables()
-
-      # Only initialize the variables that were not initialized when the graph was built
-      sess.run(tf.variables_initializer(variables, name='init'))
-      var_keep_dic = self.get_variables_in_checkpoint_file(self.pretrained_model)
-      variables_to_restore = []
-      # print(var_keep_dic)
-      for v in variables:
-          if v.name.split(':')[0] in var_keep_dic:
-              variables_to_restore.append(v)
-      print('Vars2Restore: {}'.format([v.op.name for v in variables_to_restore]))
-
-      restorer = tf.train.Saver(variables_to_restore)
-      restorer.restore(sess, self.pretrained_model)
-      print('Loaded.')
-      sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE))
-      last_snapshot_iter = 0
-
-
-      # ToonNet
-
       # # Fresh train directly from VGG weights
       # print('Loading initial model weights from {:s}'.format(self.pretrained_model))
       # variables = tf.global_variables()
       #
       # # Only initialize the variables that were not initialized when the graph was built
       # sess.run(tf.variables_initializer(variables, name='init'))
-      #
-      # slim = tf.contrib.slim
-      # vars = slim.get_variables_to_restore(
-      #   include=['discriminator'], exclude=['fully_connected', 'discriminator/fully_connected'])
       # var_keep_dic = self.get_variables_in_checkpoint_file(self.pretrained_model)
       # variables_to_restore = []
       # # print(var_keep_dic)
-      # for v in vars:
+      # for v in variables:
       #     if v.name.split(':')[0] in var_keep_dic:
       #         variables_to_restore.append(v)
-      #
       # print('Vars2Restore: {}'.format([v.op.name for v in variables_to_restore]))
       #
       # restorer = tf.train.Saver(variables_to_restore)
@@ -204,6 +176,34 @@ class SolverWrapper(object):
       # print('Loaded.')
       # sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE))
       # last_snapshot_iter = 0
+
+
+      # ToonNet
+
+      # Fresh train directly from VGG weights
+      print('Loading initial model weights from {:s}'.format(self.pretrained_model))
+      variables = tf.global_variables()
+
+      # Only initialize the variables that were not initialized when the graph was built
+      sess.run(tf.variables_initializer(variables, name='init'))
+
+      slim = tf.contrib.slim
+      vars = slim.get_variables_to_restore(
+        include=['discriminator'], exclude=['fully_connected', 'discriminator/fully_connected'])
+      var_keep_dic = self.get_variables_in_checkpoint_file(self.pretrained_model)
+      variables_to_restore = []
+      # print(var_keep_dic)
+      for v in vars:
+          if v.name.split(':')[0] in var_keep_dic:
+              variables_to_restore.append(v)
+
+      print('Vars2Restore: {}'.format([v.op.name for v in variables_to_restore]))
+
+      restorer = tf.train.Saver(variables_to_restore)
+      restorer.restore(sess, self.pretrained_model)
+      print('Loaded.')
+      sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE))
+      last_snapshot_iter = 0
     else:
       # Get the most recent snapshot and restore
       ss_paths = [ss_paths[-1]]
