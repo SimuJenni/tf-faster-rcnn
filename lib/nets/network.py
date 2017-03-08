@@ -26,8 +26,8 @@ from model.config import cfg
 
 class Network(object):
     def __init__(self, batch_size=1):
-        self._feat_stride = [17, ]
-        self._feat_compress = [1. / 17., ]
+        self._feat_stride = [16, ]
+        self._feat_compress = [1. / 16., ]
         self._batch_size = batch_size
         self._predictions = {}
         self._losses = {}
@@ -98,7 +98,7 @@ class Network(object):
             return tf.image.roi_pooling(bootom, rois,
                                         pooled_height=7,
                                         pooled_width=7,
-                                        spatial_scale=1. / 17)[0]
+                                        spatial_scale=1. / 16)[0]
 
     def _crop_pool_layer(self, bottom, rois, name):
         with tf.variable_scope(name) as scope:
@@ -165,8 +165,8 @@ class Network(object):
 
     def _anchor_component(self):
         with tf.variable_scope('ANCHOR_' + self._tag) as scope:
-            height = tf.to_int32(tf.floor(self._im_info[0, 0] / 17.))
-            width = tf.to_int32(tf.floor(self._im_info[0, 1] / 17.))
+            height = tf.to_int32(tf.floor(self._im_info[0, 0] / 16.))
+            width = tf.to_int32(tf.floor(self._im_info[0, 1] / 16.))
             anchors, anchor_length = tf.py_func(generate_anchors_pre,
                                                 [height, width,
                                                  self._feat_stride, self._anchor_scales],

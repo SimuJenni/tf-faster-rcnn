@@ -98,7 +98,7 @@ class ToonNet(Network):
                 initializer_bbox = tf.random_normal_initializer(mean=0.0, stddev=0.001)
 
             with slim.arg_scope(toon_net_argscope(activation=lrelu, padding='SAME', training=is_training)):
-                net = slim.conv2d(self._image, 64, kernel_size=[11, 11], stride=4, padding='VALID', scope='conv_1')
+                net = slim.conv2d(self._image, 64, kernel_size=[11, 11], stride=4, padding='SAME', scope='conv_1')
                 net = slim.max_pool2d(net, kernel_size=[3, 3], stride=2, scope='pool_1')
                 net = slim.conv2d(net, 192, kernel_size=[5, 5], scope='conv_2')
                 net = slim.max_pool2d(net, kernel_size=[3, 3], stride=2, scope='pool_2')
