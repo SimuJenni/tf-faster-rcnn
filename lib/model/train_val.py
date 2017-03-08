@@ -118,7 +118,7 @@ class SolverWrapper(object):
 
       # Compute the gradients wrt the loss
       gvs = self.optimizer.compute_gradients(loss)
-      gvs = [(tf.clip_by_value(grad, -100., 100.), var) for grad, var in gvs]
+      gvs = [(tf.clip_by_value(grad, -1000., 1000.), var) for grad, var in gvs]
 
       # Double the gradient of the bias if set
       if cfg.TRAIN.DOUBLE_BIAS:
