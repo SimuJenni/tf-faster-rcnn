@@ -40,7 +40,7 @@ class vgg16(Network):
       y1 = tf.slice(rois, [0, 2], [-1, 1], name="y1") / height
       x2 = tf.slice(rois, [0, 3], [-1, 1], name="x2") / width
       y2 = tf.slice(rois, [0, 4], [-1, 1], name="y2") / height
-      bboxes = tf.concat(concat_dim=1, values=[y1, x1, y2, x2])
+      bboxes = tf.concat(axis=1, values=[y1, x1, y2, x2])
       crops = tf.image.crop_and_resize(bottom, bboxes, tf.to_int32(batch_ids), [14, 14], name="crops")
 
     return slim.max_pool2d(crops, [2, 2], padding='SAME')
