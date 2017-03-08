@@ -49,6 +49,7 @@ def toon_net_argscope(activation=tf.nn.relu, kernel_size=(3, 3), padding='SAME',
         'decay': 0.95,
         'epsilon': 0.001,
         'center': center,
+        'trainable': False
     }
     trunc_normal = lambda stddev: tf.truncated_normal_initializer(0.0, stddev)
     with slim.arg_scope([slim.conv2d, slim.fully_connected, slim.convolution2d_transpose],
