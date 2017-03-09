@@ -242,8 +242,8 @@ class SolverWrapper(object):
     last_summary_time = time.time()
     while iter < max_iters + 1:
       # Learning rate
-      if iter == cfg.TRAIN.STEPSIZE:
-        sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE * cfg.TRAIN.GAMMA))
+      if (iter % cfg.TRAIN.STEPSIZE) == 0:
+        sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE * cfg.TRAIN.GAMMA ** (iter / cfg.TRAIN.STEPSIZE)))
 
       timer.tic()
       # Get training data, one batch at a time
