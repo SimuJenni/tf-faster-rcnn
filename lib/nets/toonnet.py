@@ -46,10 +46,10 @@ def toon_net_argscope(activation=tf.nn.relu, kernel_size=(3, 3), padding='SAME',
     """
     batch_norm_params = {
         'is_training': False,
-        'decay': 0.95,
-        'epsilon': 0.001,
+        'decay': 0.995,
+        'epsilon': 1e-5,
         'center': center,
-        'trainable': False
+        # 'trainable': False
     }
     trunc_normal = lambda stddev: tf.truncated_normal_initializer(0.0, stddev)
     with slim.arg_scope([slim.conv2d, slim.fully_connected, slim.convolution2d_transpose],
@@ -87,8 +87,7 @@ class ToonNet(Network):
         return slim.max_pool2d(crops, [2, 2], padding='SAME')
 
     def build_network(self, sess, is_training=True):
-        with tf.variable_scope('discriminator', regularizer=tf.contrib.layers.l2_regularizer(cfg.TRAIN.WEIGHT_DECAY),
-                               reuse=None):
+        with tf.variable_scope('discriminator', 'discriminator', regularizer=tf.contrib.layers.l2_regularizer(cfg.TRAIN.WEIGHT_DECAY)):
 
             # select initializers
             if cfg.TRAIN.TRUNCATED:
@@ -118,7 +117,7 @@ class ToonNet(Network):
                 biases_regularizer = None
             else:
                 biases_regularizer = tf.no_regularizer
-            rpn = slim.conv2d(net, 512, [3, 3], trainable=is_training, weights_initializer=initializer,
+            rpn = slim.conv2d(net, 256, [3, 3], trainable=is_training, weights_initializer=initializer,
                               biases_regularizer=biases_regularizer,
                               biases_initializer=tf.constant_initializer(0.0), scope="rpn_conv/3x3")
             self._act_summaries.append(rpn)
