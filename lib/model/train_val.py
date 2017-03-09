@@ -233,7 +233,7 @@ class SolverWrapper(object):
 
         # Set the learning rate, only reduce once
         if last_snapshot_iter >= cfg.TRAIN.STEPSIZE:
-          sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE * cfg.TRAIN.GAMMA))
+          sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE * cfg.TRAIN.GAMMA ** np.floor(last_snapshot_iter/cfg.TRAIN.STEPSIZE)))
         else:
           sess.run(tf.assign(lr, cfg.TRAIN.LEARNING_RATE))
 
