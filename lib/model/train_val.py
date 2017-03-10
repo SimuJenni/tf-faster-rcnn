@@ -114,11 +114,10 @@ class SolverWrapper(object):
       # Set learning rate and momentum
       lr = tf.Variable(cfg.TRAIN.LEARNING_RATE, trainable=False)
       momentum = cfg.TRAIN.MOMENTUM
-      self.optimizer = tf.train.AdamOptimizer(learning_rate=lr)
+      self.optimizer = tf.train.MomentumOptimizer(learning_rate=lr, momentum=momentum)
 
       # Compute the gradients wrt the loss
       gvs = self.optimizer.compute_gradients(loss)
-      gvs = [(tf.clip_by_value(grad, -100., 100.), var) for grad, var in gvs]
 
       # Double the gradient of the bias if set
       if cfg.TRAIN.DOUBLE_BIAS:

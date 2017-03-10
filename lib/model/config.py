@@ -37,16 +37,16 @@ __C.TRAIN.STEPSIZE = 30000
 __C.TRAIN.DISPLAY = 10
 
 # Whether to double the learning rate for bias
-__C.TRAIN.DOUBLE_BIAS = True
+__C.TRAIN.DOUBLE_BIAS = False
 
 # Whether to initialize the weights with truncated normal distribution 
-__C.TRAIN.TRUNCATED = False
+__C.TRAIN.TRUNCATED = True
 
 # Whether to have weight decay on bias as well
 __C.TRAIN.BIAS_DECAY = False
 
 # Whether to add ground truth boxes to the pool when sampling regions
-__C.TRAIN.USE_GT = False
+__C.TRAIN.USE_GT = True
 
 # Whether to use aspect-ratio grouping of training images, introduced merely for saving
 # GPU memory
@@ -193,10 +193,10 @@ __C.TEST.RPN_POST_NMS_TOP_N = 300
 
 # Testing mode, default to be 'nms', 'top' is slower but better
 # See report for details
-__C.TEST.MODE = 'nms'
+__C.TEST.MODE = 'top'
 
 # Only useful when TEST.MODE is 'top', specifies the number of top proposals to select
-__C.TEST.RPN_TOP_N = 5000
+__C.TEST.RPN_TOP_N = 7500
 
 #
 # MISC
