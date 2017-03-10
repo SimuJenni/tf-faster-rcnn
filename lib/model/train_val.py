@@ -114,7 +114,7 @@ class SolverWrapper(object):
       # Set learning rate and momentum
       lr = tf.Variable(cfg.TRAIN.LEARNING_RATE, trainable=False)
       momentum = cfg.TRAIN.MOMENTUM
-      self.optimizer = tf.train.MomentumOptimizer(lr, momentum)
+      self.optimizer = tf.train.AdamOptimizer(learning_rate=lr)
 
       # Compute the gradients wrt the loss
       gvs = self.optimizer.compute_gradients(loss)

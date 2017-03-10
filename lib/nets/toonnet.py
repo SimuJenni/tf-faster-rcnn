@@ -117,7 +117,7 @@ class ToonNet(Network):
                 biases_regularizer = None
             else:
                 biases_regularizer = tf.no_regularizer
-            rpn = slim.conv2d(net, 256, [3, 3], trainable=is_training, weights_initializer=initializer,
+            rpn = slim.conv2d(net, 512, [3, 3], trainable=is_training, weights_initializer=initializer,
                               biases_regularizer=biases_regularizer,
                               biases_initializer=tf.constant_initializer(0.0), scope="rpn_conv/3x3")
             self._act_summaries.append(rpn)
